@@ -1,0 +1,39 @@
+-Make everything dynamic (sub-cats)
+<?php
+            $Record = mysqli_query($conn, "Select * from sub_cat where cat_id=3");
+            while ($row =mysqli_fetch_array($Record)) {
+        ?>
+
+        <section id="<?php echo $row['sub_cat_name'] ?>">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sectionHead"><?php echo $row['sub_cat_name'] ?></div>
+                        <hr>
+                        <br>
+                    </div>
+                    <?php 
+                    $Record = mysqli_query($conn, "Select * from article where cat_id=3 and sub_cat_id= order by article_id desc");
+                    while ($row = mysqli_fetch_array($Record)) {
+                    ?>
+      
+                    <div class="col-md-3">
+                    <div class="box"><!--News box -->
+                        <img class="Politics_image" src="./admin/<?php echo $row['image'];?>" alt="Image here...">
+                        <p><?php echo $row['title'];?><br><a><?php echo $row['brief_desc'];?></a></p>
+                            <form action="article.php" method="get">
+                                <input type="hidden" name="article_id" value="<?php echo $row['article_id'] ?>">
+                                <button type="submit" class="btn  btn-success">View Article</button>
+                            </form>
+                    </div>
+                    </div>
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </section>
+
+        <?php
+            }
+        ?>
